@@ -84,7 +84,7 @@ export default function Preloader() {
                 transition={{ duration: 0.7, ease: "easeOut" }}
               >
                 <img
-                  src="/img/profile-gilang.jpeg"
+                  src={`${import.meta.env.BASE_URL}img/profile-gilang.jpeg`}
                   alt="Gilang Fauzi"
                   className="w-full h-full object-cover rounded-full"
                 />

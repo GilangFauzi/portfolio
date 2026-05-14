@@ -48,7 +48,7 @@ export default function Hero() {
       <motion.div className="max-w-4xl mx-auto text-center relative z-10" variants={containerVariants} initial="hidden" animate="visible">
         <motion.div className="mb-6" variants={itemVariants}>
           <motion.div
-            className="w-36 h-36 mx-auto rounded-full bg-gradient-to-br from-cyan-400 to-blue-600 shadow-2xl shadow-cyan-500/30 relative overflow-hidden cursor-pointer"
+            className="w-36 h-36 mx-auto rounded-full bg-gray-800 shadow-2xl shadow-cyan-500/30 relative overflow-hidden cursor-pointer"
             whileHover={{ scale: 1.05, rotateY: 15, rotateX: -10 }}
             onClick={() => setShowPhoto(true)}
             style={{ transformStyle: "preserve-3d" }}
@@ -56,9 +56,9 @@ export default function Hero() {
             transition={{ boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" }, rotateY: { duration: 6, repeat: Infinity, ease: "easeInOut" }, rotateX: { duration: 4, repeat: Infinity, ease: "easeInOut" } }}
           >
             <img
-              src="/img/profile-gilang.jpeg"
+              src={`${import.meta.env.BASE_URL}img/profile-gilang.jpeg`}
               alt="Gilang Fauzi"
-              className="w-full h-full object-cover rounded-full"
+              className="absolute inset-0 w-full h-full object-cover rounded-full"
             />
             <motion.div className="absolute inset-0 rounded-full border-2 border-cyan-400/50" animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0, 0.5], rotateZ: [0, 360] }} transition={{ duration: 3, repeat: Infinity }} style={{ transformStyle: "preserve-3d" }} />
             <motion.div className="absolute inset-0 rounded-full border border-cyan-400/30" animate={{ scale: [1.1, 1.25, 1.1], opacity: [0.3, 0, 0.3], rotateZ: [360, 0] }} transition={{ duration: 4, repeat: Infinity, delay: 0.5 }} style={{ transformStyle: "preserve-3d" }} />
