@@ -1,7 +1,7 @@
-import { useRef } from "react";
+import { useRef, memo } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-export default function SectionHeading({ number, title, highlight }) {
+const SectionHeading = memo(function SectionHeading({ number, title, highlight }) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -29,4 +29,6 @@ export default function SectionHeading({ number, title, highlight }) {
       </div>
     </div>
   );
-}
+});
+
+export default SectionHeading;

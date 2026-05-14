@@ -1,6 +1,8 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import SectionHeading from "./SectionHeading";
+import translations from "../i18n/translations";
+import { useLanguage } from "../context/LanguageContext";
 import Magnetic from "./Magnetic";
 
 const skillCategories = [
@@ -16,37 +18,31 @@ const softSkills = ["Problem Solving", "Analytical Thinking", "Communication", "
 export default function Skills() {
   const ref = useRef(null);
   const isInView = useInView(ref, { amount: 0.1 });
+  const { lang } = useLanguage();
+  const t = translations[lang];
 
   return (
     <section id="skills" className="py-24 sm:py-28 px-4 sm:px-6 lg:px-8 bg-surface-alt relative">
       <div className="max-w-4xl mx-auto" ref={ref}>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }} transition={{ duration: 0.5 }}>
-          <SectionHeading number={5} title="Skills" highlight="& Expertise" />
+          <SectionHeading number={5} title={t.skills.title} highlight={t.skills.highlight} />
         </motion.div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
           {skillCategories.map((cat, i) => (
             <Magnetic key={i} strength={10}>
               <motion.div initial={{ opacity: 0, y: 25 }} animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }} transition={{ duration: 0.4, delay: i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }} whileHover={{ y: -4, borderColor: "rgba(34, 211, 238, 0.3)", rotateY: 5, rotateX: -3 }} style={{ transformStyle: "preserve-3d", perspective: "800px" }} className="bg-surface-card border border-border rounded-xl p-5 backdrop-blur-sm group hover:shadow-xl hover:shadow-cyan-500/5 transition-all duration-300">
                 <div className="flex items-center gap-3 mb-4">
-                  <motion.div className="w-9 h-9 rounded-lg bg-cyan-400/10 flex items-center justify-center group-hover:bg-cyan-400/20 transition-colors" whileHover={{ rotateY: 180 }} transition={{ duration: 0.5 }}>
-                    <svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={cat.icon} /></svg>
-                  </motion.div>
+                  <motion.div className="w-9 h-9 rounded-lg bg-cyan-400/10 flex items-center justify-center group-hover:bg-cyan-400/20 transition-colors" whileHover={{ rotateY: 180 }} transition={{ duration: 0.5 }}><svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={cat.icon} /></svg></motion.div>
                   <h3 className="text-text font-semibold text-sm uppercase tracking-wider">{cat.category}</h3>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {cat.skills.map((skill) => (
-                    <motion.span key={skill} className="px-3 py-1 rounded-full bg-surface text-text-secondary text-xs font-medium border border-border hover:border-cyan-400/30 hover:text-cyan-400 transition-all cursor-default" whileHover={{ scale: 1.1, y: -2 }}>{skill}</motion.span>
-                  ))}
-                </div>
+                <div className="flex flex-wrap gap-2">{cat.skills.map((skill) => (<motion.span key={skill} className="px-3 py-1 rounded-full bg-surface text-text-secondary text-xs font-medium border border-border hover:border-cyan-400/30 hover:text-cyan-400 transition-all cursor-default" whileHover={{ scale: 1.1, y: -2 }}>{skill}</motion.span>))}</div>
               </motion.div>
             </Magnetic>
           ))}
         </div>
-        <motion.h3 initial={{ opacity: 0, y: 10 }} animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }} transition={{ duration: 0.4, delay: 0.4 }} className="text-xl font-semibold text-text mb-4">Soft Skills</motion.h3>
+        <motion.h3 initial={{ opacity: 0, y: 10 }} animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }} transition={{ duration: 0.4, delay: 0.4 }} className="text-xl font-semibold text-text mb-4">{t.skills.softSkills}</motion.h3>
         <div className="flex flex-wrap gap-2">
-          {softSkills.map((skill, i) => (
-            <motion.span key={skill} initial={{ opacity: 0, scale: 0.8 }} animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }} transition={{ duration: 0.3, delay: 0.5 + i * 0.06 }} whileHover={{ scale: 1.08, y: -3 }} className="px-4 py-1.5 rounded-full bg-cyan-400/10 text-cyan-400 text-xs font-medium border border-cyan-400/20 hover:bg-cyan-400/20 transition-all cursor-default">{skill}</motion.span>
-          ))}
+          {softSkills.map((skill, i) => (<motion.span key={skill} initial={{ opacity: 0, scale: 0.8 }} animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }} transition={{ duration: 0.3, delay: 0.5 + i * 0.06 }} whileHover={{ scale: 1.08, y: -3 }} className="px-4 py-1.5 rounded-full bg-cyan-400/10 text-cyan-400 text-xs font-medium border border-cyan-400/20 hover:bg-cyan-400/20 transition-all cursor-default">{skill}</motion.span>))}
         </div>
       </div>
     </section>

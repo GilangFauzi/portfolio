@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import CountUp from "./CountUp";
+import translations from "../i18n/translations";
+import { useLanguage } from "../context/LanguageContext";
 
 const roles = [
   "Software Engineer",
@@ -16,6 +18,8 @@ export default function Hero() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [showPhoto, setShowPhoto] = useState(false);
   const ref = useRef(null);
+  const { lang } = useLanguage();
+  const t = translations[lang];
 
   useEffect(() => {
     const currentRole = roles[roleIndex];
@@ -55,17 +59,13 @@ export default function Hero() {
             animate={{ boxShadow: ["0 0 40px rgba(34,211,238,0.3)", "0 0 60px rgba(34,211,238,0.5)", "0 0 40px rgba(34,211,238,0.3)"], rotateY: [0, 10, 0], rotateX: [0, 5, 0] }}
             transition={{ boxShadow: { duration: 2, repeat: Infinity, ease: "easeInOut" }, rotateY: { duration: 6, repeat: Infinity, ease: "easeInOut" }, rotateX: { duration: 4, repeat: Infinity, ease: "easeInOut" } }}
           >
-            <img
-              src={`${import.meta.env.BASE_URL}img/profile-gilang.jpeg`}
-              alt="Gilang Fauzi"
-              className="absolute inset-0 w-full h-full object-cover rounded-full"
-            />
+            <img src={`${import.meta.env.BASE_URL}img/profile-gilang.jpeg`} alt="Gilang Fauzi" loading="lazy" className="absolute inset-0 w-full h-full object-cover rounded-full" />
             <motion.div className="absolute inset-0 rounded-full border-2 border-cyan-400/50" animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0, 0.5], rotateZ: [0, 360] }} transition={{ duration: 3, repeat: Infinity }} style={{ transformStyle: "preserve-3d" }} />
             <motion.div className="absolute inset-0 rounded-full border border-cyan-400/30" animate={{ scale: [1.1, 1.25, 1.1], opacity: [0.3, 0, 0.3], rotateZ: [360, 0] }} transition={{ duration: 4, repeat: Infinity, delay: 0.5 }} style={{ transformStyle: "preserve-3d" }} />
           </motion.div>
         </motion.div>
 
-        <motion.p variants={itemVariants} className="text-cyan-400 font-mono text-sm tracking-[0.2em] mb-4">HELLO, I&apos;M</motion.p>
+        <motion.p variants={itemVariants} className="text-cyan-400 font-mono text-sm tracking-[0.2em] mb-4">{t.hero.greeting}</motion.p>
         <motion.h1 variants={itemVariants} className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-text mb-4 tracking-tight">
           Gilang <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Fauzi</span>
         </motion.h1>
@@ -77,11 +77,11 @@ export default function Hero() {
           </h2>
         </motion.div>
         <motion.p variants={itemVariants} className="text-text-muted max-w-2xl mx-auto mb-8 leading-relaxed text-base sm:text-lg">
-          Lulusan S1 Teknik Informatika Universitas Pamulang. Berpengalaman dalam pengembangan sistem Internet of Things (IoT) dan web development — menciptakan solusi inovatif di berbagai proyek.
+          {t.hero.subtitle}
         </motion.p>
 
         <motion.div variants={itemVariants} className="flex flex-wrap items-center justify-center gap-3 text-sm text-text-muted mb-8">
-          <span className="flex items-center gap-1.5"><svg className="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>Bogor, Indonesia</span>
+          <span className="flex items-center gap-1.5"><svg className="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>{t.hero.location}</span>
           <span className="w-1 h-1 rounded-full bg-text-muted hidden sm:inline" />
           <a href="mailto:gilangfauzi023@gmail.com" className="flex items-center gap-1.5 hover:text-cyan-400 transition-colors"><svg className="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>gilangfauzi023@gmail.com</a>
         </motion.div>
@@ -96,50 +96,28 @@ export default function Hero() {
 
         <motion.div variants={itemVariants} className="max-w-md mx-auto bg-surface-card border border-border rounded-2xl p-6 backdrop-blur-sm" whileHover={{ scale: 1.02, rotateY: -3, rotateX: 2 }} style={{ transformStyle: "preserve-3d" }}>
           <div className="grid grid-cols-3 gap-4">
-            <CountUp end={3} suffix="+" label="Years Exp" />
-            <CountUp end={7} suffix="" label="Projects" />
-            <CountUp end={13} suffix="" label="Certifications" />
+            <CountUp end={3} suffix="+" label={t.stats.yearsExp} />
+            <CountUp end={7} suffix="" label={t.stats.projects} />
+            <CountUp end={13} suffix="" label={t.stats.certifications} />
           </div>
         </motion.div>
       </motion.div>
 
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10">
         <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 2, repeat: Infinity }} className="text-text-muted flex flex-col items-center gap-2">
-          <span className="text-[10px] font-mono uppercase tracking-[0.2em]">Scroll</span>
+          <span className="text-[10px] font-mono uppercase tracking-[0.2em]">{t.hero.scroll}</span>
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
         </motion.div>
       </div>
 
       <AnimatePresence>
         {showPhoto && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setShowPhoto(false)}
-            className="fixed inset-0 z-[70] bg-black/80 backdrop-blur-md flex items-center justify-center p-4 cursor-pointer"
-          >
-            <motion.div
-              initial={{ scale: 0.5, opacity: 0, rotateY: 30 }}
-              animate={{ scale: 1, opacity: 1, rotateY: 0 }}
-              exit={{ scale: 0.5, opacity: 0, rotateY: -30 }}
-              transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative max-w-md w-full"
-            >
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setShowPhoto(false)} className="fixed inset-0 z-[70] bg-black/80 backdrop-blur-md flex items-center justify-center p-4 cursor-pointer">
+            <motion.div initial={{ scale: 0.5, opacity: 0, rotateY: 30 }} animate={{ scale: 1, opacity: 1, rotateY: 0 }} exit={{ scale: 0.5, opacity: 0, rotateY: -30 }} transition={{ type: "spring", stiffness: 300, damping: 25 }} onClick={(e) => e.stopPropagation()} className="relative max-w-md w-full">
               <div className="rounded-2xl overflow-hidden border-4 border-cyan-400/30 shadow-2xl shadow-cyan-500/20">
-                <img
-                  src={`${import.meta.env.BASE_URL}img/profile-gilang.jpeg`}
-                  alt="Gilang Fauzi"
-                  className="w-full h-auto block"
-                />
+                <img src={`${import.meta.env.BASE_URL}img/profile-gilang.jpeg`} alt="Gilang Fauzi" className="w-full h-auto block" />
               </div>
-              <button
-                onClick={() => setShowPhoto(false)}
-                className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-cyan-400 text-gray-900 flex items-center justify-center font-bold text-sm shadow-lg hover:bg-cyan-300 transition-colors"
-              >
-                &times;
-              </button>
+              <button onClick={() => setShowPhoto(false)} className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-cyan-400 text-gray-900 flex items-center justify-center font-bold text-sm shadow-lg hover:bg-cyan-300 transition-colors">&times;</button>
             </motion.div>
           </motion.div>
         )}

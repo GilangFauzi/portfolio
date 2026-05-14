@@ -1,6 +1,8 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import SectionHeading from "./SectionHeading";
+import translations from "../i18n/translations";
+import { useLanguage } from "../context/LanguageContext";
 
 const certifications = [
   "Certificate Course Dasar-dasar UI/UX (Coursera 2024)", "Certificate of Skill Competence Rest API Laravel Lumen (Belajar Skill) 2024", "Certificate of Professional Skill Internet of Things (MySkill) 2024", "Certificate of Skill Specialization Vue JS (MySkill) 2024", "Certificate of Skill Specialization Git & GitHub (MySkill) 2024",
@@ -13,12 +15,14 @@ const years = [...new Set(certifications.map((c) => c.match(/\d{4}/)?.[0] || "")
 export default function Certifications() {
   const ref = useRef(null);
   const isInView = useInView(ref, { amount: 0.1 });
+  const { lang } = useLanguage();
+  const t = translations[lang];
 
   return (
     <section id="certifications" className="py-24 sm:py-28 px-4 sm:px-6 lg:px-8 bg-surface relative">
       <div className="max-w-4xl mx-auto" ref={ref}>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }} transition={{ duration: 0.5 }}>
-          <SectionHeading number={6} title="Certifications" highlight="& Training" />
+          <SectionHeading number={6} title={t.certifications.title} highlight={t.certifications.highlight} />
         </motion.div>
         {years.map((year, yi) => {
           const yearCerts = certifications.filter((c) => c.includes(year));

@@ -8,7 +8,7 @@ function Sparkle({ style }) {
     "M12 0l1 11 11 1-11 1-1 11-1-11-11-1 11-1z",
   ];
   const shape = shapes[Math.floor(Math.random() * shapes.length)];
-  const size = Math.random() * 8 + 6;
+  const size = Math.random() * 6 + 5;
   const colors = ["#22d3ee", "#60a5fa", "#a78bfa", "#34d399", "#fbbf24"];
   const color = colors[Math.floor(Math.random() * colors.length)];
 
@@ -24,9 +24,9 @@ function Sparkle({ style }) {
         filter: `drop-shadow(0 0 3px ${color})`,
       }}
       initial={{ opacity: 1, scale: 1, rotate: 0 }}
-      animate={{ opacity: 0, scale: 0, rotate: 180, y: -30 }}
+      animate={{ opacity: 0, scale: 0, rotate: 120, y: -25 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.6 + Math.random() * 0.4, ease: "easeOut" }}
+      transition={{ duration: 0.5 + Math.random() * 0.3, ease: "easeOut" }}
     >
       <path d={shape} />
     </motion.svg>
@@ -53,8 +53,8 @@ export default function CustomCursor() {
       const speed = Math.sqrt(dx * dx + dy * dy);
       lastPos.current = { x: e.clientX, y: e.clientY };
 
-      if (speed > 2) {
-        const count = Math.min(Math.floor(speed / 4), 3);
+      if (speed > 4) {
+        const count = Math.min(Math.floor(speed / 8), 2);
         for (let i = 0; i < count; i++) {
           const id = counterRef.current++;
           setSparkles((prev) => [
@@ -63,7 +63,7 @@ export default function CustomCursor() {
           ]);
           setTimeout(() => {
             setSparkles((prev) => prev.filter((s) => s.id !== id));
-          }, 1200);
+          }, 1000);
         }
       }
     },
