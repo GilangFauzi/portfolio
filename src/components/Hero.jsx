@@ -129,7 +129,7 @@ export default function Hero() {
             >
               <div className="rounded-2xl overflow-hidden border-4 border-cyan-400/30 shadow-2xl shadow-cyan-500/20">
                 <img
-                  src="/img/profile-gilang.jpeg"
+                  src={`${import.meta.env.BASE_URL}img/profile-gilang.jpeg`}
                   alt="Gilang Fauzi"
                   className="w-full h-auto block"
                 />
